@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Grid Playground</title>
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .grid-container {
+            display: grid;
+            width: 50%;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .grid-item {
+            background-color: #76c7c0;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-size: 16px;
+            border: 1px solid #fff;
+        }
+
+        .controls {
+            width: 50%;
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+
+        .output {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Left: Grid Container -->
+    <div class="grid-container" id="gridContainer">
+        <div class="grid-item">Item 1</div>
+        <div class="grid-item">Item 2</div>
+        <div class="grid-item">Item 3</div>
+        <div class="grid-item">Item 4</div>
+        <div class="grid-item">Item 5</div>
+        <div class="grid-item">Item 6</div>
+    </div>
+
+    <!-- Right: Controls -->
+    <div class="controls">
+        <h2>Grid Properties</h2>
+
+        <!-- Grid Template Columns -->
+        <label for="columns">Grid Columns (e.g. 1fr 1fr 1fr):</label>
+        <input type="text" id="columns" value="1fr 1fr 1fr" oninput="updateGrid()">
+
+        <!-- Grid Template Rows -->
+        <label for="rows">Grid Rows (e.g. auto auto):</label>
+        <input type="text" id="rows" value="auto auto" oninput="updateGrid()">
+
+        <!-- Grid Gap -->
+        <label for="gap">Grid Gap (e.g. 10px):</label>
+        <input type="text" id="gap" value="10px" oninput="updateGrid()">
+
+        <!-- Justify Items -->
+        <label for="justifyItems">Justify Items:</label>
+        <select id="justifyItems" onchange="updateGrid()">
+            <option value="stretch">stretch</option>
+            <option value="start">start</option>
+            <option value="center">center</option>
+            <option value="end">end</option>
+        </select>
+
+        <!-- Align Items -->
+        <label for="alignItems">Align Items:</label>
+        <select id="alignItems" onchange="updateGrid()">
+            <option value="stretch">stretch</option>
+            <option value="start">start</option>
+            <option value="center">center</option>
+            <option value="end">end</option>
+        </select>
+
+        <div class="output">
+            <h3>Current Grid CSS:</h3>
+            <pre id="outputCss"></pre>
+        </div>
+    </div>
+
+    <script>
+        // Function to update the grid styles dynamically
+        function updateGrid() {
+            const gridContainer = document.getElementById('gridContainer');
+
+            // Get input values
+            const columns = document.getElementById('columns').value;
+            const rows = document.getElementById('rows').value;
+            const gap = document.getElementById('gap').value;
+            const justifyItems = document.getElementById('justifyItems').value;
+            const alignItems = document.getElementById('alignItems').value;
+
+            // Apply new styles to the grid container
+            gridContainer.style.gridTemplateColumns = columns;
+            gridContainer.style.gridTemplateRows = rows;
+            gridContainer.style.gap = gap;
+            gridContainer.style.justifyItems = justifyItems;
+            gridContainer.style.alignItems = alignItems;
+
+            // Display the current CSS for the grid
+            document.getElementById('outputCss').textContent = `
+grid-template-columns: ${columns};
+grid-template-rows: ${rows};
+gap: ${gap};
+justify-items: ${justifyItems};
+align-items: ${alignItems};
+            `;
+        }
+
+        // Initial call to set up the grid
+        updateGrid();
+    </script>
+
+</body>
+</html>

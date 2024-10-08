@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexbox Playground</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            display: flex;
+            gap: 20px;
+        }
+        #playground {
+            flex: 1;
+            border: 2px solid #ccc;
+            padding: 20px;
+            min-height: 400px;
+            display: flex;
+            background-color: #f5f5f5;
+        }
+        .item {
+            padding: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: 1px solid #999;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .selected {
+            outline: 3px solid #2196F3;
+        }
+        .controls {
+            width: 300px;
+        }
+        #itemControls {
+            margin-top: 20px;
+            display: none;
+        }
+        h2 {
+            margin-top: 0;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        select {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        .control-section {
+            background-color: #f5f5f5;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+        #cssCode {
+            margin-top: 20px;
+            background-color: #333;
+            color: #fff;
+            padding: 15px;
+            font-family: monospace;
+            white-space: pre;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Flexbox Playground</h1>
+    <div class="container">
+        <div id="playground">
+            <div class="item" onclick="selectItem(this)">1</div>
+            <div class="item" onclick="selectItem(this)">2</div>
+            <div class="item" onclick="selectItem(this)">3</div>
+        </div>
+        
+        <div class="controls">
+            <div class="control-section">
+                <h2>Container Properties</h2>
+                <label for="flexDirection">flex-direction</label>
+                <select id="flexDirection" onchange="updateContainer()">
+                    <option value="row">row</option>
+                    <option value="column">column</option>
+                    <option value="row-reverse">row-reverse</option>
+                    <option value="column-reverse">column-reverse</option>
+                </select>
+
+                <label for="justifyContent">justify-content</label>
+                <select id="justifyContent" onchange="updateContainer()">
+                    <option value="flex-start">flex-start</option>
+                    <option value="flex-end">flex-end</option>
+                    <option value="center">center</option>
+                    <option value="space-between">space-between</option>
+                    <option value="space-around">space-around</option>
+                </select>
+
+                <label for="alignItems">align-items</label>
+                <select id="alignItems" onchange="updateContainer()">
+                    <option value="stretch">stretch</option>
+                    <option value="flex-start">flex-start</option>
+                    <option value="flex-end">flex-end</option>
+                    <option value="center">center</option>
+                </select>
+
+                <label for="flexWrap">flex-wrap</label>
+                <select id="flexWrap" onchange="updateContainer()">
+                    <option value="nowrap">nowrap</option>
+                    <option value="wrap">wrap</option>
+                    <option value="wrap-reverse">wrap-reverse</option>
+                </select>
+            </div>
+            
+            <div id="itemControls" class="control-section">
+                <h2>Item Properties</h2>
+                <label for="flexGrow">flex-grow</label>
+                <select id="flexGrow" onchange="updateItem()">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+
+                <label for="flexShrink">flex-shrink</label>
+                <select id="flexShrink" onchange="updateItem()">
+                    <option value="1">1</option>
+                    <option value="0">0</option>
+                    <option value="2">2</option>
+                </select>
+
+                <label for="alignSelf">align-self</label>
+                <select id="alignSelf" onchange="updateItem()">
+                    <option value="auto">auto</option>
+                    <option value="flex-start">flex-start</option>
+                    <option value="flex-end">flex-end</option>
+                    <option value="center">center</option>
+                    <option value="stretch">stretch</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    
+    <div id="cssCode"></div>
+
+    <script>
+        let selectedItem = null;
+        
+        function selectItem(item) {
+            if (selectedItem) {
+                selectedItem.classList.remove('selected');
+            }
+            
+            if (selectedItem === item) {
+                selectedItem = null;
+                document.getElementById('itemControls').style.display = 'none';
+            } else {
+                selectedItem = item;
+                item.classList.add('selected');
+                document.getElementById('itemControls').style.display = 'block';
+                
+                document.getElementById('flexGrow').value = item.style.flexGrow || '0';
+                document.getElementById('flexShrink').value = item.style.flexShrink || '1';
+                document.getElementById('alignSelf').value = item.style.alignSelf || 'auto';
+            }
+            
+            updateCSSCode();
+        }
+        
+        function updateContainer() {
+            const playground = document.getElementById('playground');
+            playground.style.flexDirection = document.getElementById('flexDirection').value;
+            playground.style.justifyContent = document.getElementById('justifyContent').value;
+            playground.style.alignItems = document.getElementById('alignItems').value;
+            playground.style.flexWrap = document.getElementById('flexWrap').value;
+            
+            updateCSSCode();
+        }
+        
+        function updateItem() {
+            if (selectedItem) {
+                selectedItem.style.flexGrow = document.getElementById('flexGrow').value;
+                selectedItem.style.flexShrink = document.getElementById('flexShrink').value;
+                selectedItem.style.alignSelf = document.getElementById('alignSelf').value;
+                
+                updateCSSCode();
+            }
+        }
+        
+        function updateCSSCode() {
+            let css = '.container {\n';
+            const playground = document.getElementById('playground');
+            css += `  display: flex;\n`;
+            css += `  flex-direction: ${playground.style.flexDirection || 'row'};\n`;
+            css += `  justify-content: ${playground.style.justifyContent || 'flex-start'};\n`;
+            css += `  align-items: ${playground.style.alignItems || 'stretch'};\n`;
+            css += `  flex-wrap: ${playground.style.flexWrap || 'nowrap'};\n`;
+            css += '}\n\n';
+            
+            if (selectedItem) {
+                css += '.selected-item {\n';
+                if (selectedItem.style.flexGrow) css += `  flex-grow: ${selectedItem.style.flexGrow};\n`;
+                if (selectedItem.style.flexShrink && selectedItem.style.flexShrink !== '1') {
+                    css += `  flex-shrink: ${selectedItem.style.flexShrink};\n`;
+                }
+                if (selectedItem.style.alignSelf && selectedItem.style.alignSelf !== 'auto') {
+                    css += `  align-self: ${selectedItem.style.alignSelf};\n`;
+                }
+                css += '}';
+            }
+            
+            document.getElementById('cssCode').textContent = css;
+        }
+        
+        updateCSSCode();
+    </script>
+</body>
+</html>
