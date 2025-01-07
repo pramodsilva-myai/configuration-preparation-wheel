@@ -1,0 +1,47 @@
+# ========================================
+# Gradle Configuration - Optimized Setup
+# ========================================
+
+# ========================
+# Gradle Daemon
+# ========================
+# Gradle Daemon සක්‍රීය කරයි.
+# මෙම ක්‍රියාවලිය පසුගිය සැසියෙන් පසු ස්මාර්ට් එකක් තබා ගැනීමෙන්
+# අවස්ථාවකටම නැවත විෂම කාලයන් අඩු කරයි.
+org.gradle.daemon=true
+
+# ========================
+# Build Cache
+# ========================
+# Build Cache ක්‍රමය සක්‍රීය කරයි.
+# පසුගිය build වල ප්‍රතිඵල ආපසු යොදාගැනීමෙන්
+# කාලය ඉතිරි කිරීමට කාර්යක්ෂම වේ.
+org.gradle.caching=true
+
+# ========================
+# Parallel Build
+# ========================
+# කාර්යයන් විවිධ ස්වාධීනව සමන්තරව ක්‍රියාත්මක වේ,
+# CPU සංඛ්‍යාත්මක භාවිතය අතිරේක කාර්යක්ෂමතාවයක් ලබා දෙයි.
+org.gradle.parallel=true
+
+# ========================
+# Incremental Compilation
+# ========================
+# හුවමාරු කළේ යන files පමණක් යලි build කරයි,
+# නිසා unnecessary recompilation වලින් build කාලය අඩු කරයි.
+org.gradle.incremental=true
+
+# ========================
+# JVM Options
+# ========================
+# Gradle JVM සදහා memory හා garbage collection ක්‍රමය optimize කිරීම.
+# සම්මත ගුණාත්මක පරිසරයක් ලබා දෙයි.
+org.gradle.jvmargs=-Xmx2048m -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:+HeapDumpOnOutOfMemoryError
+
+# ========================
+# Configure on Demand
+# ========================
+# Configure on demand feature එක සක්‍රීය කිරීම.
+# සෑම build එකකටම නොව, build කිරීමේ අවශ්‍යම projects පමණක් configure කරයි.
+org.gradle.configureondemand=true
