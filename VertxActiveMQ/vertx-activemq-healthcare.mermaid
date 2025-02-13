@@ -1,0 +1,59 @@
+graph TB
+    subgraph "Healthcare Applications"
+        C1[Medical Devices]
+        C2[EMR Systems]
+        C3[Lab Systems]
+        C4[Patient Portals]
+    end
+
+    subgraph "Vert.x Event Bus"
+        V1[Vert.x HTTP Verticle]
+        V2[Vert.x WebSocket Verticle]
+        V3[Vert.x MQTT Verticle]
+        V4[Message Processing Verticle]
+        V5[Data Validation Verticle]
+    end
+
+    subgraph "ActiveMQ Message Broker"
+        Q1[Patient Data Queue]
+        Q2[Lab Results Queue]
+        Q3[Alerts Queue]
+        Q4[Audit Queue]
+    end
+
+    subgraph "Backend Services"
+        B1[Storage Service]
+        B2[Analytics Engine]
+        B3[Audit Service]
+        B4[Alert System]
+    end
+
+    C1 --> V1
+    C2 --> V1
+    C3 --> V2
+    C4 --> V3
+
+    V1 --> V4
+    V2 --> V4
+    V3 --> V4
+    V4 --> V5
+
+    V5 --> Q1
+    V5 --> Q2
+    V5 --> Q3
+    V5 --> Q4
+
+    Q1 --> B1
+    Q2 --> B2
+    Q3 --> B4
+    Q4 --> B3
+
+    classDef healthcare fill:#f9f,stroke:#333,stroke-width:2px
+    classDef vertx fill:#9cf,stroke:#333,stroke-width:2px
+    classDef activemq fill:#fd9,stroke:#333,stroke-width:2px
+    classDef backend fill:#9f9,stroke:#333,stroke-width:2px
+
+    class C1,C2,C3,C4 healthcare
+    class V1,V2,V3,V4,V5 vertx
+    class Q1,Q2,Q3,Q4 activemq
+    class B1,B2,B3,B4 backend
