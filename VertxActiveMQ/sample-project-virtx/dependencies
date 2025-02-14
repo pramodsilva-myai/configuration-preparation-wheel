@@ -1,0 +1,17 @@
+<dependencies>
+    <dependency>
+        <groupId>io.vertx</groupId>
+        <artifactId>vertx-core</artifactId>
+        <version>4.4.0</version>
+    </dependency>
+    <dependency>
+        <groupId>io.vertx</groupId>
+        <artifactId>vertx-amqp-client</artifactId>
+        <version>4.4.0</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.activemq</groupId>
+        <artifactId>activemq-client</artifactId>
+        <version>5.18.0</version>
+    </dependency>
+</dependencies>
